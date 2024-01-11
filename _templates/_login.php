@@ -34,10 +34,30 @@ body {
 }
 
 </style>
+
+<?php
+$email = $_POST["email"];
+$password = $_POST["password"];
+
+$result = login_validation($email,$password);
+
+if($result)
+{?>
+  <div class="container">
+    <h1 class="mt-5">Login Successful</h1>
+    <p class="lead">happy coding......</p>
+    <p>Use <a href="/docs/5.1/examples/sticky-footer-navbar/">the sticky footer with a fixed navbar</a> if need be, too.</p>
+  </div>
+<?php 
+}
+else
+{
+?>
+
 <body class="text-center">
     
     <main class="form-signin">
-      <form method = "get" action = "test.php">
+      <form method = "post" action = "login.php">
         <img class="mb-4" src="https://w7.pngwing.com/pngs/458/631/png-transparent-camera-logo-graphy-graphy-symbol-s-photography-monochrome-still-camera-thumbnail.png" alt="" width="72" height="57">
         <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
     
@@ -57,8 +77,8 @@ body {
         </div>
         <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
       </form>
-    </main>
-    
-    
-        
+    </main>   
       </body>
+<?php
+}
+?>
