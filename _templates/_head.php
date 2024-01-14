@@ -8,47 +8,13 @@
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/album/">
 
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl7/1L_dstPt3HV5HzF6Gvk/e3s4Wz6iJgD/+ub2oU" crossorigin="anonymous">
 
     <!-- Bootstrap core CSS -->
 <link href="/app/assets/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-      }
-
-
-
-        .footer {
-            background-color: #333;
-            color: #fff;
-            padding: 20px;
-            text-align: center;
-        }
-
-        .footer p {
-            margin: 0;
-        }
-
-        .social-icons {
-            margin-top: 10px;
-        }
-
-        .social-icons a {
-            margin: 0 10px;
-            text-decoration: none;
-            color: #fff;
-        }
-
-
-
-
-    </style>
-
+<?php if(file_exists($_SERVER["DOCUMENT_ROOT"]."/app/css/".basename($_SERVER["PHP_SELF"],".php").".css")) {?>
+<link href="/app/css/<?=basename($_SERVER['PHP_SELF'],".php")?>.css" 
+rel="stylesheet">
+<?}?>
     
   </head>
