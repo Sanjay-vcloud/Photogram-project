@@ -2,7 +2,7 @@
 <?php
 include 'libs/load.php';
 
-signup("admn","dfaf","dfaj@jdafj.com","1234567890");
+// signup("admn","dfaf","dfaj@jdafj.com","1234567890");
 // echo "Server";
 // print_r($_SERVER);
 // echo "POST";
@@ -13,5 +13,9 @@ signup("admn","dfaf","dfaj@jdafj.com","1234567890");
 // print_r($_FILES);
 // echo "COOKIE";
 // print_r($_COOKIE);
+
+$mic1 = new mic("hyper","blue","1000");
+$mic1->display();
+
 ?>
 </pre>
