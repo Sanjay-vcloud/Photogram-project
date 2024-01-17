@@ -1,8 +1,9 @@
 <pre>
 <?php
+session_start();
+// setcookie("cookiename", "cookie_value", time() + (86400 * 30), "/");
 include 'libs/load.php';
 
-// signup("admn","dfaf","dfaj@jdafj.com","1234567890");
 // echo "Server";
 // print_r($_SERVER);
 // echo "POST";
@@ -14,8 +15,24 @@ include 'libs/load.php';
 // echo "COOKIE";
 // print_r($_COOKIE);
 
-$mic1 = new mic("hyper","blue","1000");
-$mic1->display();
+echo "_SESSION\n";
+print_r($_SESSION); // presist across the request
+
+if(isset($_GET['clear']))
+{
+    echo "clearing the session\n";
+    session_unset();
+}
+if(isset($_SESSION['a']))
+{
+    echo "A already exist.. value of a: $_SESSION[a]\n";
+}
+else
+{
+    $_SESSION['a'] = time();
+    echo "new valued assigned to a.. value of a: $_SESSION[a]\n";
+}
+
 
 ?>
 </pre>
