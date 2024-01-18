@@ -6,7 +6,7 @@ class user
 
     static function signup($user,$pass,$email,$phone)
     {
-      $pass = md5($pass);
+      $pass = sha1(strrev(md5($pass)));
     $conn=database::getconnection();
     
     $sql = "INSERT INTO `auth` (`username`, `password`, `email`, `phone`, `blocked`, `active`)
@@ -31,20 +31,25 @@ class user
 
     static function login_validation ($username,$password)
     {
-        $password = md5($password);
+      
+      $password = sha1(strrev(md5($password)));
 
       $conn = database::getconnection();
-
-      $sql = "SELECT *
-      FROM `auth`
-      WHERE `username` = '$username' AND `password` = '$password'";
-      $result = $conn->query($sql);
-      if ($result->num_rows > 0) {
-        // User is authenticated, you can proceed with further actions (e.g., set sessions)
-          return true;
-      } else {
+      $query = "SELECT * FROM `auth` WHERE `username` = '$username'"; 
+      $result = $conn->query($query);
+      if ($result->num_rows == 1) {
+        $row = $result->fetch_assoc();
+        if($row['password']==$password)
+        {
+          return $row;
+        }
+      else {
         // Invalid credentials
        return false;
       }
+    }else
+    {
+      return false;
+    }
     }
 }
