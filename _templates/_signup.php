@@ -1,6 +1,9 @@
 <?
 $signup = false;
-if (isset($_POST['username']) and isset($_POST['password'])and isset($_POST['email'])and isset($_POST['phone']))
+if (isset($_POST['username']) && !empty($_POST['username']) &&
+    isset($_POST['password']) && !empty($_POST['password']) &&
+    isset($_POST['email']) && !empty($_POST['email']) &&
+    isset($_POST['phone']) && !empty($_POST['phone']))
 {
 $username = $_POST['username'];
 $password = $_POST['password'];
@@ -15,7 +18,7 @@ if($signup)
 	{?>
  <div class="container">
     <h1 class="mt-5">signup Successful</h1>
-    <p class="lead">happy coding...... hi you are doing great keep move on</p>
+    <p class="lead">happy coding...... hi you are doing great keep move on <a href="http://172.20.23.99/app/login.php">Login Here</a></p>
   </div>
   <?}else{?>
 

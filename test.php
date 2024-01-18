@@ -15,24 +15,17 @@ include 'libs/load.php';
 // echo "COOKIE";
 // print_r($_COOKIE);
 
-echo "_SESSION\n";
-print_r($_SESSION); // presist across the request
+// echo "_SESSION\n";
+// print_r($_SESSION); // presist across the request
 
-if(isset($_GET['clear']))
-{
-    echo "clearing the session\n";
-    session_unset();
-}
-if(isset($_SESSION['a']))
-{
-    echo "A already exist.. value of a: $_SESSION[a]\n";
-}
-else
-{
-    $_SESSION['a'] = time();
-    echo "new valued assigned to a.. value of a: $_SESSION[a]\n";
-}
-
+database::getconnection();
+database::getconnection();
+database::getconnection();
+database::getconnection();
+database::getconnection();
+database::getconnection();
+database::getconnection();
+database::getconnection();
 
 ?>
 </pre>

@@ -12,18 +12,7 @@ function load_template($name)
 include $_SERVER['DOCUMENT_ROOT']."/app/_templates/$name.php";
 }
 
-function login_validation ($email,$password)
-{
-    if($email=='sanjay@gmail.com' and $password == 'sanjay@123')
-    {
-        echo "login_validation(true block)";
-        return true;
-    }
-    else 
-    {
-        return false;
-    }
-}
+
 
 
 
