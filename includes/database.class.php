@@ -20,11 +20,11 @@ class database
           die("Connection failed: " . $conn->connect_error);
         }else{
             database::$conn = $conn;
-            echo "establishing new connection\n";
+            // echo "establishing new connection\n";
             return database::$conn;
         }
     }else{
-        echo "establishing existing connection\n";
+        // echo "establishing existing connection\n";
         return database::$conn;
     }
         
