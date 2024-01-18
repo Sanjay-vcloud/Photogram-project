@@ -8,22 +8,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $password = $_POST['password'];
 
       // Assuming user::login_validation is a function you've defined for login validation
-      $error = user::login_validation($username, $password);
+      $row = user::login_validation($username, $password);
       $signin = true;
   }
 }
 if($signin)
 {
-	if($error)
+	if($row)
 	{?>
  <div class="container">
     <h1 class="mt-5">signin Successful</h1>
-    <p class="lead">happy coding...... hi you are doing great keep move on</p>
+    <p class="lead">happy coding <?=$row['username']?>...... hi you are doing great keep move on</p>
   </div>
   <?}else{?>
 
     <h1 class="mt-5">Error</h1>
-    <p class="lead">Something went wrong solve <?=$error?></p>
+    <p class="lead">user name or password is wrong please enter correct details</p>
 <?} }else{?>
 
 <body class="text-center">
