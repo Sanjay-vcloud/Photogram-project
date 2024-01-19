@@ -32,7 +32,7 @@ class user
     static function login_validation ($username,$password)
     {
       
-      $password = sha1(strrev(md5($password)));
+      $password = sha1(strrev(md5($password))); // security through obscurity
 
       $conn = database::getconnection();
       $query = "SELECT * FROM `auth` WHERE `username` = '$username'"; 
