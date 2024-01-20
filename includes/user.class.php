@@ -6,7 +6,8 @@ class user
 
     static function signup($user,$pass,$email,$phone)
     {
-      $pass = sha1(strrev(md5($pass)));
+      // $pass = sha1(strrev(md5($pass)));
+      $pass = password_hash($pass,PASSWORD_DEFAULT);
     $conn=database::getconnection();
     
     $sql = "INSERT INTO `auth` (`username`, `password`, `email`, `phone`, `blocked`, `active`)
@@ -32,14 +33,14 @@ class user
     static function login_validation ($username,$password)
     {
       
-      $password = sha1(strrev(md5($password))); // security through obscurity
-
+      // $password = sha1(strrev(md5($password))); security through obscurity
       $conn = database::getconnection();
       $query = "SELECT * FROM `auth` WHERE `username` = '$username'"; 
       $result = $conn->query($query);
       if ($result->num_rows == 1) {
         $row = $result->fetch_assoc();
-        if($row['password']==$password)
+        // if($row['password']==$password)
+        if(password_verify($password,$row['password']))
         {
           return $row;
         }
