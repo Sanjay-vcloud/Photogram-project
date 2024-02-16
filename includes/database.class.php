@@ -9,9 +9,9 @@ class database
         if(database::$conn==null)
         {
         $servername = "mysql.selfmade.ninja";
-        $username = "sanjay057";
-        $password = "sanjay@123";
-        $dbname = "sanjay057_photogram";
+        $username = "sanjay";
+        $password = "sanjay@123?";
+        $dbname = "sanjay_photogram";
         
         // Create connection
         $conn = new mysqli($servername, $username, $password, $dbname);
@@ -20,11 +20,11 @@ class database
           die("Connection failed: " . $conn->connect_error);
         }else{
             database::$conn = $conn;
-            // echo "establishing new connection\n";
+            echo "establishing new connection\n";
             return database::$conn;
         }
     }else{
-        // echo "establishing existing connection\n";
+        echo "establishing existing connection\n";
         return database::$conn;
     }
         
