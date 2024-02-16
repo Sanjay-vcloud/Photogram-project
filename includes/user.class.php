@@ -24,7 +24,7 @@ class user
     
     }
 
-    public function __construct($user)
+    public function __construct($user)    //strub
     {
       $this->conn = database::getconnection();
       $this->conn->query();
@@ -53,4 +53,30 @@ class user
       return false;
     }
     }
+
+    public function authentication() //function strubs
+    {
+
+    }
+
+    public function setbio()
+    {
+
+    }
+
+    public function getbio()
+    {
+
+    }
+
+    public function setAvatar()
+    {
+
+    }
+
+    public function getAvatar()
+    {
+
+    }
+
 }
