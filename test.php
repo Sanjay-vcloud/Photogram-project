@@ -1,6 +1,6 @@
 <pre>
 <?php
-session_start();
+// session_start();
 // setcookie("cookiename", "cookie_value", time() + (86400 * 30), "/");
 include 'libs/load.php';
 
@@ -18,14 +18,16 @@ include 'libs/load.php';
 // echo "_SESSION\n";
 // print_r($_SESSION); // presist across the request
 
-database::getconnection();
-database::getconnection();
-database::getconnection();
-database::getconnection();
-database::getconnection();
-database::getconnection();
-database::getconnection();
-database::getconnection();
+// database::getconnection();
+// database::getconnection();
+// database::getconnection();
+// database::getconnection();
+
+$mic1 = new mic('frisky','red','10k');
+$mic1->display();
+$mic1->brand='sanjay';
+echo "\n".$mic1->brand."\n";
+$mic1->display();
 
 ?>
-</pre>
+</pre> 
