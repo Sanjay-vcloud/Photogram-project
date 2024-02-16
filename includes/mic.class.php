@@ -14,8 +14,8 @@ class mic
 
     public function display()
     {
-        echo $this->brand;
-        echo $this->color;
+        echo $this->brand."\n";
+        echo $this->color."\n";
         echo $this->price;
 
     }
