@@ -6,6 +6,7 @@ class database
 
     static function getconnection()
     {
+    try{
         if(database::$conn==null)
         {
         $servername = "mysql.selfmade.ninja";
@@ -17,16 +18,20 @@ class database
         $conn = new mysqli($servername, $username, $password, $dbname);
         // Check connection
         if ($conn->connect_error) {
-          die("Connection failed: " . $conn->connect_error);
+          throw new Exception("Connection failed: " . $conn->connect_error);
         }else{
             database::$conn = $conn;
-            echo "establishing new connection\n";
+            // echo "establishing new connection\n";
             return database::$conn;
         }
     }else{
-        echo "establishing existing connection\n";
+        // echo "establishing existing connection\n";
         return database::$conn;
     }
-        
+}
+catch(Exception $e)
+{
+    echo "Exception Caugh : ".$e->getMessage();
+}  
     }
 }
