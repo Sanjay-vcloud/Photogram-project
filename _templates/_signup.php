@@ -14,11 +14,11 @@ $signup = true;
 }
 if($signup)
 {
-	if(!$error)
+	if($error)
 	{?>
  <div class="container">
     <h1 class="mt-5">signup Successful</h1>
-    <p class="lead">happy coding...... hi you are doing great keep move on <a href="http://172.20.23.99/app/login.php">Login Here</a></p>
+    <p class="lead">happy coding...... hi you are doing great keep move on <a href="http://172.30.1.239/app/login.php">Login Here</a></p>
   </div>
   <?}else{?>
 
