@@ -3,7 +3,8 @@
 include 'libs/load.php';
 
 $username = "admin";
-$password = "admin";
+// $password = "admin";
+$password = isset($_GET['pass']) ? $_GET['pass'] : '';
 
 // $result =user::login_validation($username,$password);
 
@@ -29,17 +30,17 @@ if(session::get('is_loggedin'))
 }
 else
 {
-    echo "no session is found,try to login now";
+    echo "no session is found,try to login now ";
     $result = user::login_validation($username,$password);
 
     if($result)
     {
-        echo "login success, ".$result['username'];
+        echo "<br> login success, ".$result['username'];
         session::set('is_loggedin',true);
         session::set('user_session',$result);
     }
     else{
-        echo "login failed";
+        echo "<br> login failed $username";
     }
 }
 ?>
