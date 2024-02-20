@@ -9,10 +9,14 @@ class database
     try{
         if(database::$conn==null)
         {
-        $servername = "mysql.selfmade.ninja";
-        $username = "sanjay";
-        $password = "sanjay@123?";
-        $dbname = "sanjay_photogram";
+        $servername = get_config("db_servername");
+        $username = get_config("db_username");
+        $password = get_config("db_password");
+        $dbname = get_config("db_name");
+        // echo $servername;
+        // echo $username;
+        // echo $password;
+        // echo $dbname;
         
         // Create connection
         $conn = new mysqli($servername, $username, $password, $dbname);
