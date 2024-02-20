@@ -2,7 +2,7 @@
 <?php
 // session_start();
 // setcookie("cookiename", "cookie_value", time() + (86400 * 30), "/");
-include 'libs/load.php';
+// include 'libs/load.php';
 
 // echo "Server";
 // print_r($_SERVER);
@@ -23,11 +23,19 @@ include 'libs/load.php';
 // database::getconnection();
 // database::getconnection();
 
-$mic1 = new mic('frisky','red','10k');
-$mic1->display();
-$mic1->brand='sanjay';
-echo "\n".$mic1->brand."\n";
-$mic1->display();
+// $mic1 = new mic('frisky','red','10k');
+// $mic1->display();
+// $mic1->brand='sanjay';
+// echo "\n".$mic1->brand."\n";
+// $mic1->display();
+$file_path = $_SERVER['DOCUMENT_ROOT'] . '/../photogramconfig.json';
+
+if (file_exists($file_path)) {
+    $__site_config = file_get_contents($file_path);
+    echo "file exist";
+} else {
+    echo "File not found: $file_path";
+}
 
 ?>
 </pre> 

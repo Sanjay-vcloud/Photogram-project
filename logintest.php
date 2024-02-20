@@ -26,16 +26,20 @@ $result = null;
 if(session::get('is_loggedin'))
 {
     $userdata = session::get('user_session');
-    echo "Welcome back ," . $userdata['username'];
+    $userobj = new user($result);
+    echo "Welcome back ," . $userobj->getFirstname();
+    $userobj->setBio('making new bio');
+    echo $userobj->getBio();
 }
 else
 {
     echo "no session is found,try to login now ";
     $result = user::login_validation($username,$password);
+    $userobj = new user($result);
 
     if($result)
     {
-        echo "<br> login success, ".$result['username'];
+        echo "<br> login success, ".$userobj->getFirstname();
         session::set('is_loggedin',true);
         session::set('user_session',$result);
     }
