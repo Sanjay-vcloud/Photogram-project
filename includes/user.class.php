@@ -6,6 +6,19 @@ class user
   private $username;
   private $id;
 
+  public function __call($name, $arguments)
+  {
+    $property = preg_replace("/[^0-9a-zA-Z]/", "", substr($name, 3));
+    $property = strtolower(preg_replace('/\B([A-Z])/', '_$1', $property));
+
+    if (substr($name, 0, 3) == "get") {
+      return $this->_get_data($property);
+    } elseif (substr($name, 0, 3) == "set") {
+      return $this->_set_data($property, $arguments[0]);
+    }
+  }
+
+
   static function signup($user, $pass, $email, $phone)
   {
     // $pass = sha1(strrev(md5($pass)));
@@ -23,9 +36,6 @@ class user
     } catch (Exception $e) {
       echo "exception caugh : " . $e->getMessage();
     }
-
-    $conn->close();
-    return $error;
   }
 
   static function login_validation($username, $password)
@@ -39,7 +49,7 @@ class user
       $row = $result->fetch_assoc();
       // if($row['password']==$password)
       if (password_verify($password, $row['password'])) {
-        return $row;
+        return $row['username'];
       } else {
         // Invalid credentials
         return false;
@@ -57,7 +67,7 @@ class user
       $this->id = null;
 
       // TODO: Write the code to fetch user data from the database. Include the 'id' column in the SELECT statement.
-      $sql = "SELECT `id`, `username` FROM `auth` WHERE `username` = '$user'";
+      $sql = "SELECT `id`, `username` FROM `auth` WHERE `username` = '$this->username'";
       $result = $this->conn->query($sql);
 
       if ($result === FALSE) {
@@ -75,133 +85,90 @@ class user
     }
   }
 
-  public function authentication() //function strubs
-  {
-  }
-
-  public function setbio($bio)
+  // Private method to set data in the database
+  private function _set_data($column, $value)
   {
     try {
-      //TODO : Write update command to update bio
-      if($this->id==null)
-      {
-        throw new Exception('failed');
+      $this->conn = Database::getConnection();
+      if ($this->id == null) {
+        throw new Exception('User ID not available.');
       }
-      $updateSql = "UPDATE `users` SET `bio` = '$bio' WHERE `id` = '$this->id'";
+
+      $updateSql = "UPDATE `users` SET `$column` = '$value' WHERE `id` = '$this->id'";
       if ($this->conn->query($updateSql) === FALSE) {
-        throw new Exception(" connection failed : " . $this->conn->connect_error);
+        throw new Exception("Connection failed: " . $this->conn->connect_error);
       } else {
-        echo "<br>Bio updated successful";
+        echo "<br>$column updated successfully";
       }
     } catch (Exception $e) {
-      echo "Exception catch : " . $e->getMessage();
+      echo "Exception caught: " . $e->getMessage();
     }
   }
 
-  public function getbio()
+  // Private method to get data from the database
+  private function _get_data($column)
   {
     try {
-      if($this->id==null)
-      {
-        throw new Exception('failed');
+      $this->conn = Database::getConnection();
+      if ($this->id == null) {
+        throw new Exception('User ID not available.');
       }
-      //TODO : Write select command to fetch bio
-      $getsql = "SELECT bio FROM users WHERE id = '$this->id'";
-      if ($this->conn->query($getsql) === FALSE) {
-        throw new Exception("Failed :" . $this->conn->connect_error);
+
+      $getSql = "SELECT $column FROM users WHERE id = '$this->id'";
+      $result = $this->conn->query($getSql);
+
+      if ($result === FALSE) {
+        throw new Exception("Failed: " . $this->conn->connect_error);
       }
-      $result = $this->conn->query($getsql);
+
       if ($result->num_rows == 1) {
         $row = $result->fetch_assoc();
-        echo "<br>BIO $row[bio]";
+        return $row[$column];
       }
     } catch (Exception $e) {
-      echo "Exception catch: " . $e->getMessage();
+      echo "Exception caught: " . $e->getMessage();
     }
   }
 
+  // public function authentication()
+  // {
+  //     // TODO: Implement authentication logic
+  // }
+
+  // // Public methods using _set_data and _get_data for bio, avatar, dob
+  // public function setBio($bio)
+  // {
+  //     return $this->_set_data('bio', $bio);
+  // }
+
+  // public function getBio()
+  // {
+  //     return $this->_get_data('bio');
+  // }
+
+  // public function setAvatar($link)
+  // {
+  //     return $this->_set_data('avatar', $link);
+  // }
+
+  // public function getAvatar()
+  // {
+  //     return $this->_get_data('avatar');
+  // }
+
+  // public function setDob($year, $month, $day)
+  //   {
+  //       if (checkdate($month, $day, $year)) { //checking data is valid
+  //           return $this->_set_data('dob', "$year.$month.$day");
+  //       } else {
+  //           return false;
+  //       }
+  //   }
 
 
-  public function setAvatar($link)
-  {
-    try {
-      if($this->id==null)
-      {
-        throw new Exception('failed');
-      }
-      //TODO : Write update command to update bio
-      $updateSql = "UPDATE `users` SET `avatar` = '$link' WHERE `id` = '$this->id'";
-      if ($this->conn->query($updateSql) === FALSE) {
-        throw new Exception(" connection failed : " . $this->conn->connect_error);
-      } else {
-        echo "<br>avatar updated successful";
-      }
-    } catch (Exception $e) {
-      echo "Exception catch : " . $e->getMessage();
-    }
-  }
+  // public function getDob()
+  // {
+  //     return $this->_get_data('dob');
+  // }
 
-  public function getAvatar()
-  {
-    try {
-      if($this->id==null)
-      {
-        throw new Exception('failed');
-      }
-      //TODO : Write select command to fetch bio
-      $getsql = "SELECT avatar FROM users WHERE id = '$this->id'";
-      if ($this->conn->query($getsql) === FALSE) {
-        throw new Exception("Failed :" . $this->conn->connect_error);
-      }
-      $result = $this->conn->query($getsql);
-      if ($result->num_rows == 1) {
-        $row = $result->fetch_assoc();
-        echo "<br>avatar $row[avatar]";
-      }
-    } catch (Exception $e) {
-      echo "Exception catch: " . $e->getMessage();
-    }
-  }
-  
-
-  public function setdob($dob)
-  {
-    try {
-      if($this->id==null)
-      {
-        throw new Exception('failed');
-      }
-      //TODO : Write update command to update bio
-      $updateSql = "UPDATE `users` SET `dob` = '$dob' WHERE `id` = '$this->id'";
-      if ($this->conn->query($updateSql) === FALSE) {
-        throw new Exception(" connection failed : " . $this->conn->connect_error);
-      } else {
-        echo "<br>dob updated successful";
-      }
-    } catch (Exception $e) {
-      echo "Exception catch : " . $e->getMessage();
-    }
-  }
-
-  public function getdob()
-  {
-    try {
-      if($this->id==null)
-      {
-        throw new Exception('failed');
-      }
-      //TODO : Write select command to fetch bio
-      $getsql = "SELECT dob FROM users WHERE id = '$this->id'";
-      if ($this->conn->query($getsql) === FALSE) {
-        throw new Exception("Failed :" . $this->conn->connect_error);
-      }
-      $result = $this->conn->query($getsql);
-      if ($result->num_rows == 1) {
-        $row = $result->fetch_assoc();
-        echo "<br>dob: $row[dob]";
-      }
-    } catch (Exception $e) {
-      echo "Exception catch: " . $e->getMessage();
-    }
-  }
 }
