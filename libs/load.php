@@ -26,7 +26,7 @@ function get_config($key, $default=null)
 function load_template($name)
 {
 //    include __DIR__."/../_templates/$name.php"; not consistent 
-include $_SERVER['DOCUMENT_ROOT']."/app/_templates/$name.php";
+include $_SERVER['DOCUMENT_ROOT']."/photogram/_templates/$name.php";
 }
 
 

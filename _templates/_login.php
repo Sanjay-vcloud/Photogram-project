@@ -52,11 +52,6 @@ if($signin)
       </form>
     </main>   
       </body>
-<br>
-<br>
-<br>
-<br>
-<br>
 <?php
 }
 ?>
