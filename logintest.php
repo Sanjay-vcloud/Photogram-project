@@ -22,7 +22,12 @@ if(isset($_GET['logout']))
     die("Session destroyed Login again <br><br><a href='logintest.php'><button>login</button></a>");
 }
 $result = null;
-
+/** 
+ * check if session_token is available
+ * if yes construct usersession and see its successful
+ * check the session is vaild one
+ * if valid print session validated else ask user to login
+ */
 if(session::get('is_loggedin'))
 {
     $userdata = session::get('user_session');
